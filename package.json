@@ -1,7 +1,7 @@
 {
   "name": "directory.js",
   "version": "1.0.0",
-  "description": "JS API for the Middlebury student directory",
+  "description": "JS API for the Middlebury student directory at https://directory.middlebury.edu/default.aspx",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

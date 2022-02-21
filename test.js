@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
-import { viewstate, eventvalidation } from "./constants.js";
-
+import { viewstate, eventvalidation } from "./src/constants.js";
+import {parse} from "node-html-parser";
+ 
 const email = "nsliter@middlebury.edu";
 
 const urlEncoded = new URLSearchParams();
@@ -26,12 +27,31 @@ const requestOptions = {
   redirect: "follow",
 };
 
-fetch("https://directory.middlebury.edu/default.aspx", requestOptions)
+async function test(){
+  const res = await fetch("https://directory.middlebury.edu/", requestOptions);
+  const text = await res.text();
+  const root = parse(text);
+  const table = root.querySelector("tblResults");
+  //console.log(text);
+  const linkNode = root.querySelector(
+    "#ctl00_ctl00_PageContent_PageContent_middDirectoryForm_lstResults_ctl02_lnkName"
+  );
+  const link = linkNode.attributes.href;
+  console.log(link);
+
+
+}
+
+test();
+
+/**fetch("https://directory.middlebury.edu/default.aspx", requestOptions)
   .then((response) => response.text())
   .then((result) => console.log(result))
   .catch((error) => console.log("error", error));
 
 
+
+  **/
 
   /**
    * 
