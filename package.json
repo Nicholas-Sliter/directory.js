@@ -4,7 +4,7 @@
   "description": "JS API for the Middlebury student directory at https://directory.middlebury.edu/default.aspx",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./__tests__/test.js"
   },
   "repository": {
     "type": "git",
@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/Nicholas-Sliter/directory.js#readme",
   "dependencies": {
-    "axios": "^0.26.0",
     "node-fetch": "^3.2.0",
     "node-html-parser": "^5.2.0"
+  },
+  "devDependencies": {
+    "uvu": "^0.5.3"
   },
   "type": "module"
 }
