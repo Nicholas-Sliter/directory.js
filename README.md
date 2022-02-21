@@ -7,7 +7,7 @@ Use it like this
 
 import { Scraper } from 'directory.js';
 
-const middleburyEmail = "example@middelbury.edu";
+const middleburyEmail = "example@middlebury.edu";
 const S = new Scraper(middelburyEmail);
 
 async () => {
