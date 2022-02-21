@@ -2,7 +2,7 @@
   "name": "directory.js",
   "version": "1.0.0",
   "description": "JS API for the Middlebury student directory at https://directory.middlebury.edu/default.aspx",
-  "main": "index.js",
+  "main": "scraper.js",
   "scripts": {
     "test": "node ./__tests__/test.js"
   },
@@ -26,5 +26,8 @@
   "devDependencies": {
     "uvu": "^0.5.3"
   },
-  "type": "module"
+  "type": "module",
+  "exports": {
+    "default": "./lib/scraper.js"
+  }
 }

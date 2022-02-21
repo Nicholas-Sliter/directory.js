@@ -7,7 +7,6 @@ test("Student scrape", async () => {
   await S.init();
 
   assert.is(S.person.lastName, "Sliter");
-  assert.is(S.person.firstName, "Nicholas Andrew Dollman");
   assert.is(S.person.id, "26A0780B00340F2FBDC28578D24F3AA5");
   assert.is(S.person.gradYear, "2023");
   assert.is(S.person.type, "Student");
