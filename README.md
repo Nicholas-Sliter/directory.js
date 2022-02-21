@@ -6,12 +6,13 @@ Use it like this
 ```js
 
 import { Scraper } from 'directory.js';
-async () => {
+
 const middleburyEmail = "example@middelbury.edu";
 const S = new Scraper(middelburyEmail);
-await S.init();
 
-
+async () => {
+  await S.init();
+  console.log(S.person);
 
 }
 
