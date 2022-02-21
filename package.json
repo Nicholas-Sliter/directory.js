@@ -1,0 +1,28 @@
+{
+  "name": "directory.js",
+  "version": "1.0.0",
+  "description": "JS API for the Middlebury student directory",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicholas-Sliter/directory.js.git"
+  },
+  "keywords": [
+    "Middlebury"
+  ],
+  "author": "Nicholas Sliter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nicholas-Sliter/directory.js/issues"
+  },
+  "homepage": "https://github.com/Nicholas-Sliter/directory.js#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "node-fetch": "^3.2.0",
+    "node-html-parser": "^5.2.0"
+  },
+  "type": "module"
+}
