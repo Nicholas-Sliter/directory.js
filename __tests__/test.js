@@ -6,9 +6,12 @@ test("Student scrape", async () => {
   const S = new Scraper("nsliter@middlebury.edu");
   await S.init();
 
+  console.log(S.person);
+
   assert.is(S.person.lastName, "Sliter");
   assert.is(S.person.id, "26A0780B00340F2FBDC28578D24F3AA5");
-  assert.is(S.person.gradYear, "2023");
+  //Only valid when run on internal middlebury networks
+  //assert.is(S.person.gradYear, "2023");
   assert.is(S.person.type, "Student");
   assert.is(S.person.department, undefined);
 });

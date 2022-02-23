@@ -35,7 +35,7 @@ export default class Person {
     if (this.type === "Student") {
       this.gradYear = root.querySelector(
         "#rptProperties_ctl06_lblPropertyValue"
-      ).text;
+      )?.text ?? undefined;
     }
 
     if (this.type === "Faculty") {
