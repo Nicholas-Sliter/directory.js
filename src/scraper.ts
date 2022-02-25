@@ -8,17 +8,22 @@ export const SEARCH_URL = "https://directory.middlebury.edu/default.aspx";
 export const PERSON_URL = "https://directory.middlebury.edu/GetRecord.aspx";
 
 export class Scraper {
-  email: string;
+  email?: string;
   person: Person;
+  id?: string;
 
-  constructor(email: string) {
-    this.email = email;
+  constructor(email: string = null, id: string = null) {
+    this.email = email ?? null; 
+    this.id = id ?? null;
   }
 
   public async init(): Promise<void> {
-    const id = await this.getIDByEmail(this.email);
-    this.person = new Person(id);
+    if (!this.id) {
+    this.id = await this.getIDByEmail(this.email);
+    }
+    this.person = new Person(this.id);
     await this.person.init();
+
   }
 
   private async getIDByEmail(email:string): Promise<string> {
