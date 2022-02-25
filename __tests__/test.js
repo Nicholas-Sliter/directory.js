@@ -16,6 +16,19 @@ test("Student scrape", async () => {
   assert.is(S.person.department, undefined);
 });
 
+
+test("Student scrape with ID", async () => {
+  const S = new Scraper("", "26A0780B00340F2FBDC28578D24F3AA5");
+  await S.init();
+
+  assert.is(S.person.lastName, "Sliter");
+  assert.is(S.person.id, "26A0780B00340F2FBDC28578D24F3AA5");
+  //Only valid when run on internal middlebury networks
+  //assert.is(S.person.gradYear, "2023");
+  assert.is(S.person.type, "Student");
+  assert.is(S.person.department, undefined);
+});
+
 test("Faculty scrape", async () => {
   const S1 = new Scraper("avaccari@middlebury.edu");
   await S1.init();
