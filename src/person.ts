@@ -39,9 +39,19 @@ export default class Person {
     }
 
     if (this.type === "Faculty") {
-      this.department = root.querySelector(
-        "#rptProperties_ctl06_lblPropertyValue"
-      ).text;
+
+      let deptNode;
+      for(let i = 0; i < root.querySelectorAll("td").length / 2; i++){
+        //convert i to string and pad with 0 if size 1
+        const iStr = i.toString().padStart(2, "0");
+        if(root.querySelector(`#rptProperties_ctl${iStr}_lblPropertyName`).text.includes("Department")){
+          deptNode = root.querySelector(`#rptProperties_ctl${iStr}_lblPropertyValue`);
+          break;
+        }
+      }
+
+      this.department = deptNode?.text ?? "Unknown";
+
     }
   }
 }
