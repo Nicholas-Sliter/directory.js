@@ -1,15 +1,15 @@
-import {test} from 'uvu';
+import { test } from 'uvu';
 import * as assert from 'uvu/assert';
 import { Scraper } from "../lib/scraper.js";
 
 test("Student scrape", async () => {
-  const S = new Scraper("nsliter@middlebury.edu");
+  const S = new Scraper("aballo@middlebury.edu");
   await S.init();
 
   console.log(S.person);
 
-  assert.is(S.person.lastName, "Sliter");
-  assert.is(S.person.id, "26A0780B00340F2FBDC28578D24F3AA5");
+  assert.is(S.person.lastName, "Ballo");
+  assert.is(S.person.id, "A776C2DB5B8A4B2DAB111D73EC66DDCC");
   //Only valid when run on internal middlebury networks
   //assert.is(S.person.gradYear, "2023");
   assert.is(S.person.type, "Student");
@@ -18,15 +18,25 @@ test("Student scrape", async () => {
 
 
 test("Student scrape with ID", async () => {
-  const S = new Scraper("", "26A0780B00340F2FBDC28578D24F3AA5");
+  const S = new Scraper("", "A776C2DB5B8A4B2DAB111D73EC66DDCC");
   await S.init();
 
-  assert.is(S.person.lastName, "Sliter");
-  assert.is(S.person.id, "26A0780B00340F2FBDC28578D24F3AA5");
+  assert.is(S.person.lastName, "Ballo");
+  assert.is(S.person.id, "A776C2DB5B8A4B2DAB111D73EC66DDCC");
   //Only valid when run on internal middlebury networks
   //assert.is(S.person.gradYear, "2023");
   assert.is(S.person.type, "Student");
   assert.is(S.person.department, undefined);
+});
+
+test("Faculty scrape with ID", async () => {
+  const S = new Scraper("", "24D40C0872F9CE5ED2CDF6F2F9CB82EA");
+  await S.init();
+
+  assert.is(S.person.lastName, "Lyford");
+  assert.is(S.person.id, "24D40C0872F9CE5ED2CDF6F2F9CB82EA");
+  assert.is(S.person.type, "Faculty");
+  assert.is(S.person.department, "Mathematics");
 });
 
 test("Faculty scrape", async () => {

@@ -1,10 +1,11 @@
 {
   "name": "directory.js",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "JS API for the Middlebury student directory at https://directory.middlebury.edu/default.aspx",
   "main": "./lib/scraper.js",
   "scripts": {
-    "test": "node ./__tests__/test.js"
+    "test": "node ./__tests__/test.js",
+    "build": "npx -p typescript tsc"
   },
   "repository": {
     "type": "git",
@@ -20,10 +21,11 @@
   },
   "homepage": "https://github.com/Nicholas-Sliter/directory.js#readme",
   "dependencies": {
-    "node-fetch": "^3.2.0",
-    "node-html-parser": "^5.2.0"
+    "node-fetch": "^3.3.2",
+    "node-html-parser": "^6.1.10"
   },
   "devDependencies": {
+    "@types/node": "^20.8.0",
     "uvu": "^0.5.3"
   },
   "type": "module",
