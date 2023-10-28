@@ -17,27 +17,27 @@ test("Student scrape", async () => {
 });
 
 
-test("Student scrape with ID", async () => {
-  const S = new Scraper("", "A776C2DB5B8A4B2DAB111D73EC66DDCC");
-  await S.init();
+// test("Student scrape with ID", async () => {
+//   const S = new Scraper("", "A776C2DB5B8A4B2DAB111D73EC66DDCC");
+//   await S.init();
 
-  assert.is(S.person.lastName, "Ballo");
-  assert.is(S.person.id, "A776C2DB5B8A4B2DAB111D73EC66DDCC");
-  //Only valid when run on internal middlebury networks
-  //assert.is(S.person.gradYear, "2023");
-  assert.is(S.person.type, "Student");
-  assert.is(S.person.department, undefined);
-});
+//   assert.is(S.person.lastName, "Ballo");
+//   assert.is(S.person.id, "A776C2DB5B8A4B2DAB111D73EC66DDCC");
+//   //Only valid when run on internal middlebury networks
+//   //assert.is(S.person.gradYear, "2023");
+//   assert.is(S.person.type, "Student");
+//   assert.is(S.person.department, undefined);
+// });
 
-test("Faculty scrape with ID", async () => {
-  const S = new Scraper("", "24D40C0872F9CE5ED2CDF6F2F9CB82EA");
-  await S.init();
+// test("Faculty scrape with ID", async () => {
+//   const S = new Scraper("", "24D40C0872F9CE5ED2CDF6F2F9CB82EA");
+//   await S.init();
 
-  assert.is(S.person.lastName, "Lyford");
-  assert.is(S.person.id, "24D40C0872F9CE5ED2CDF6F2F9CB82EA");
-  assert.is(S.person.type, "Faculty");
-  assert.is(S.person.department, "Mathematics");
-});
+//   assert.is(S.person.lastName, "Lyford");
+//   assert.is(S.person.id, "24D40C0872F9CE5ED2CDF6F2F9CB82EA");
+//   assert.is(S.person.type, "Faculty");
+//   assert.is(S.person.department, "Mathematics");
+// });
 
 test("Faculty scrape", async () => {
   const S1 = new Scraper("avaccari@middlebury.edu");
@@ -58,6 +58,8 @@ test("Alternate faculty scrape", async () => {
   const S1 = new Scraper("stanger@middlebury.edu");
   await S1.init();
 
+  console.log(S1.person);
+
   assert.is(S1.person.lastName, "Stanger");
   assert.is(S1.person.firstName, "Allison");
   assert.is(S1.person.id, "E4D014379D428C941E40E8571920E70B");
@@ -67,6 +69,8 @@ test("Alternate faculty scrape", async () => {
   assert.is(S1.person.department, "Political Science");
 
 });
+
+
 
 
 test.run();

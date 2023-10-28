@@ -4,6 +4,8 @@ import fetch from "node-fetch";
 
 export default class Person {
   id: string;
+  private page?: string;
+
   firstName: string;
   lastName: string;
   email: string;
@@ -11,16 +13,36 @@ export default class Person {
   gradYear?: string;
   department?: string;
 
-  constructor(id) {
+  constructor(id, page = null) {
     this.id = id;
+    this.page = page;
   }
   async init() {
-    await this.__getPersonDetailsById(this.id);
+    if (this.page) {
+      await this.__getPersonDetailsFromDirectoryPage(this.page, this.id);
+    }
+    else {
+      await this.__getPersonDetailsById(this.id);
+    }
+    this.page = null;
   }
+
+
+  private async __getPersonDetailsFromDirectoryPage(html: string, id: string) {
+    await this.__getPersonDetailsByPage(html, id);
+  }
+
+
 
   private async __getPersonDetailsById(id: string) {
     const res = await fetch(`${PERSON_URL}?MiddleburyCollegeUID=${id}`);
     const html = await res.text();
+
+    await this.__getPersonDetailsByPage(html, id);
+  }
+
+
+  private async __getPersonDetailsByPage(html: string, id: string) {
     const root = parse(html);
 
     const personNode = root
@@ -31,7 +53,6 @@ export default class Person {
       throw new Error("Person not found");
     }
 
-    // const name = getPropertyValueByName(personNode, "Name")?.split(", ") ?? ["", ""];
     const name = personNode.querySelector("h3")?.text?.split(", ") ?? ["", ""];
     this.firstName = name[1];
     this.lastName = name[0];
@@ -53,4 +74,6 @@ export default class Person {
 
     }
   }
+
+
 }
