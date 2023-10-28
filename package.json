@@ -1,6 +1,6 @@
 {
   "name": "directory.js",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "JS API for the Middlebury student directory at https://directory.middlebury.edu/default.aspx",
   "main": "./lib/scraper.js",
   "scripts": {
