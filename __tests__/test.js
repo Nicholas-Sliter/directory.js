@@ -70,6 +70,21 @@ test("Alternate faculty scrape", async () => {
 
 });
 
+test("Faculty scrape by name", async () => {
+  const S1 = new Scraper(null, "4347EFF33F703A17CBF34CE12E14464A", "Andrea", "Vaccari");
+  await S1.init();
+
+  console.log(S1.person);
+
+  assert.is(S1.person.lastName, "Vaccari");
+  assert.is(S1.person.firstName, "Andrea");
+  assert.is(S1.person.id, "4347EFF33F703A17CBF34CE12E14464A");
+  assert.is(S1.person.email, "avaccari@middlebury.edu")
+  assert.is(S1.person.gradYear, undefined);
+  assert.is(S1.person.type, "Faculty");
+  assert.is(S1.person.department, "Computer Science");
+});
+
 
 
 

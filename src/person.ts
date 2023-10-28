@@ -32,8 +32,6 @@ export default class Person {
     await this.__getPersonDetailsByPage(html, id);
   }
 
-
-
   private async __getPersonDetailsById(id: string) {
     const res = await fetch(`${PERSON_URL}?MiddleburyCollegeUID=${id}`);
     const html = await res.text();

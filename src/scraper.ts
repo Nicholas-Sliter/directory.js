@@ -2,7 +2,7 @@ import fetch, { RequestInit } from "node-fetch";
 import { parse } from "node-html-parser";
 import Person from "./person.js";
 import { URLSearchParams } from "url";
-import { SEARCH_URL } from "./utils.js";
+import { SEARCH_URL, paramMapping } from "./utils.js";
 import { useragent } from "./constants.js";
 // import { viewstate, eventvalidation } from "./constants.js";
 
@@ -11,14 +11,24 @@ export class Scraper {
   person: Person;
   id?: string;
   page?: string;
+  firstName?: string;
+  lastName?: string;
 
-  constructor(email: string = null, id: string = null) {
+  constructor(email: string = null, id: string = null, firstName: string = null, lastName: string = null) {
     this.email = email ?? null;
     this.id = id ?? null;
+    this.firstName = firstName ?? null;
+    this.lastName = lastName ?? null;
   }
 
   public async init(): Promise<void> {
-    if (!this.id) {
+
+    if (this.firstName && this.lastName && this.id) {
+      const { id, text } = await this.getPageByNameAndId(this.firstName, this.lastName, this.id);
+      this.id = id;
+      this.page = text ?? null;
+    }
+    else if (this.email) {
       const { id, text } = await this.getIDByEmail(this.email);
       this.id = id;
       this.page = text ?? null;
@@ -102,6 +112,65 @@ export class Scraper {
       viewstategenerator
     }
 
+  }
+
+
+  private async getPageByNameAndId(firstName: string, lastName: string, id: string): Promise<{
+    id: string,
+    text: string
+  }> {
+    const urlEncoded = new URLSearchParams();
+
+    const { cookie, viewstate, eventvalidation, viewstategenerator } = await this.getApsxConstants();
+
+    urlEncoded.append("__EVENTTARGET", "");
+    urlEncoded.append("__EVENTARGUMENT", "");
+    urlEncoded.append("__VIEWSTATE", viewstate);
+    urlEncoded.append("__VIEWSTATEGENERATOR", viewstategenerator);
+    urlEncoded.append("__EVENTVALIDATION", eventvalidation);
+
+    urlEncoded.append(
+      "ctl00$ctl00$PageContent$PageContent$middDirectoryForm$txtSimpleSearch",
+      ""
+    );
+
+    urlEncoded.append(
+      paramMapping.lastName,
+      lastName
+    );
+    urlEncoded.append(
+      paramMapping.firstName,
+      firstName
+    );
+
+    urlEncoded.append(
+      "ctl00$ctl00$PageContent$PageContent$middDirectoryForm$btnSearch",
+      "Search"
+    );
+
+    const requestOptions: RequestInit = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Cookie: cookie,
+        Origin: "https://directory.middlebury.edu",
+        Referer: "https://directory.middlebury.edu/",
+        Dnt: "1",
+        "Sec-Fetch-Dest": "document",
+        "Cache-Control": "max-age=0",
+        "User-Agent": useragent
+      },
+      body: urlEncoded,
+    };
+
+    const res = await fetch(
+      "https://directory.middlebury.edu/",
+      requestOptions
+    );
+
+    const text = await res.text();
+
+    return { id, text };
   }
 
 
