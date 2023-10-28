@@ -23,7 +23,7 @@ export class Scraper {
 
   public async init(): Promise<void> {
 
-    if (this.firstName && this.lastName && this.id) {
+    if ((this.firstName || this.lastName) && this.id) {
       const { id, text } = await this.getPageByNameAndId(this.firstName, this.lastName, this.id);
       this.id = id;
       this.page = text ?? null;
@@ -134,14 +134,19 @@ export class Scraper {
       ""
     );
 
-    urlEncoded.append(
-      paramMapping.lastName,
-      lastName
-    );
-    urlEncoded.append(
-      paramMapping.firstName,
-      firstName
-    );
+    if (lastName) {
+      urlEncoded.append(
+        paramMapping.lastName,
+        lastName
+      );
+    }
+
+    if (firstName) {
+      urlEncoded.append(
+        paramMapping.firstName,
+        firstName
+      );
+    }
 
     urlEncoded.append(
       "ctl00$ctl00$PageContent$PageContent$middDirectoryForm$btnSearch",
